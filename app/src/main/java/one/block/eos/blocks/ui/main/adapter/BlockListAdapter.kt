@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import one.block.eos.blocks.Block
 import one.block.eos.blocks.R
 import one.block.eos.blocks.databinding.ItemBlockBinding
+import one.block.eos.blocks.models.Block
 
 class BlockListAdapter(var navigator: BlockItemClickListener? = null) :
     ListAdapter<Block, ViewHolder>(BlockDiffCallback()) {
@@ -16,14 +16,6 @@ class BlockListAdapter(var navigator: BlockItemClickListener? = null) :
         LayoutInflater.from(parent.context)
             .inflate(R.layout.item_block, parent, false)
     )
-
-//    override fun getItemCount(): Int {
-//        return 5
-//    }
-
-//    override fun getItem(position: Int): Block {
-//        return BlocksRepository().mockBlock()
-//    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindTo(getItem(position), navigator)

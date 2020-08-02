@@ -5,7 +5,7 @@
 
         <variable
             name="block"
-            type="one.block.eos.blocks.Block" />
+            type="one.block.eos.blocks.models.Block" />
     </data>
 
     <TextView
@@ -15,6 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:gravity="center"
-        android:text="@{Integer.toString(block.number)}"
+        android:text="@{Integer.toString(block.blockNum)}"
         tools:text="1234" />
 </layout>

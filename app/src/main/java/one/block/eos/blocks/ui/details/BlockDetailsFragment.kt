@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import one.block.eos.blocks.databinding.BlockDetailsFragmentBinding
+import one.block.eos.blocks.ui.main.MainViewModel
 
 const val BLOCK_ID_KEY = "one.block.eos.blocks.ui.key.blockId"
 
@@ -20,7 +22,7 @@ class BlockDetailsFragment : Fragment() {
 
 
     private lateinit var blockId: String
-    val viewModel by viewModels<BlockDetailsViewModel>()
+    val viewModel by activityViewModels<MainViewModel>()
     private lateinit var binding: BlockDetailsFragmentBinding
 
     override fun onCreateView(
@@ -28,7 +30,6 @@ class BlockDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = BlockDetailsFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -46,4 +47,5 @@ class BlockDetailsFragment : Fragment() {
         }
         super.onSaveInstanceState(outState)
     }
+
 }

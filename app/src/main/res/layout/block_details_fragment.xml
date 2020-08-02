@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="one.block.eos.blocks.ui.details.BlockDetailsViewModel" />
+            type="one.block.eos.blocks.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

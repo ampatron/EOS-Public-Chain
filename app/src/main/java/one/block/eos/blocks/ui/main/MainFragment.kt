@@ -5,19 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.main_fragment.*
-import one.block.eos.blocks.Block
 import one.block.eos.blocks.R
 import one.block.eos.blocks.databinding.MainFragmentBinding
+import one.block.eos.blocks.models.Block
 import one.block.eos.blocks.ui.details.BlockDetailsFragment
 import one.block.eos.blocks.ui.main.adapter.BlockItemClickListener
 import one.block.eos.blocks.ui.main.adapter.BlockListAdapter
 
 class MainFragment : Fragment() {
 
-    private val viewModel by viewModels<MainViewModel>()
+    private val viewModel by activityViewModels<MainViewModel>()
     private lateinit var adapter: BlockListAdapter
     private lateinit var binding: MainFragmentBinding
 
@@ -25,12 +27,14 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         adapter = BlockListAdapter(object : BlockItemClickListener {
             override fun onBlockClicked(block: Block) {
+                viewModel.block = block
                 findNavController().navigate(
                     R.id.action_mainFragment_to_blockDetailsFragment,
                     BlockDetailsFragment.newInstanceArguments(block.id)
                 )
             }
         })
+
     }
 
     override fun onCreateView(
@@ -38,7 +42,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = MainFragmentBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = requireActivity()
         return binding.root
     }
 
@@ -46,9 +50,11 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         blocks.adapter = adapter
 
+        viewModel.blocks.observe(requireActivity(), Observer {
+            adapter.submitList(it)
+        })
         load_blocks.setOnClickListener {
-
-            adapter.submitList(viewModel.blocks)
+            viewModel.getRecentBlocks()
         }
     }
 }
