@@ -5,4 +5,5 @@
     <string name="labal_transactions">Transactions</string>
     <string name="label_producer_signature">Producer Signature</string>
     <string name="label_see_more">See More</string>
+    <string name="label_see_less">See Less</string>
 </resources>

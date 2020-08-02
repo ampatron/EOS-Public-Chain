@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.block_details_fragment.*
 import one.block.eos.blocks.databinding.BlockDetailsFragmentBinding
 import one.block.eos.blocks.ui.main.MainViewModel
 
@@ -20,7 +21,6 @@ class BlockDetailsFragment : Fragment() {
             bundleOf(BLOCK_ID_KEY to blockId)
     }
 
-
     private lateinit var blockId: String
     val viewModel by activityViewModels<MainViewModel>()
     private lateinit var binding: BlockDetailsFragmentBinding
@@ -30,6 +30,7 @@ class BlockDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = BlockDetailsFragmentBinding.inflate(inflater, container, false)
+        binding.scrollView.isSmoothScrollingEnabled = true
         return binding.root
     }
 
@@ -39,6 +40,18 @@ class BlockDetailsFragment : Fragment() {
             blockId = it
         }
         binding.viewModel = viewModel
+        viewModel.blockRawData.observe(requireActivity(), Observer {
+            binding.rawContent.text = it
+        })
+
+        raw_content_toggle.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.convertBlockToRaw(viewModel.block!!)
+                binding.rawContent.visibility = View.VISIBLE
+            } else {
+                binding.rawContent.visibility = View.GONE
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -47,5 +60,4 @@ class BlockDetailsFragment : Fragment() {
         }
         super.onSaveInstanceState(outState)
     }
-
 }

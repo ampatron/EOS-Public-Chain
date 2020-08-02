@@ -3,6 +3,9 @@ package one.block.eos.blocks.ui.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.gson.GsonBuilder
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.internal.toImmutableList
@@ -14,7 +17,13 @@ class MainViewModel : ViewModel() {
     val blocks: LiveData<List<Block>>
         get() = _blocks
 
+    private var _blockRawData = MutableLiveData<String>()
+    val blockRawData: LiveData<String>
+        get() = _blockRawData
+
     var block: Block? = null
+        private set
+
     fun getRecentBlocks() {
         val blocksList = mutableListOf<Block>()
         GlobalScope.launch {
@@ -27,4 +36,18 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
+    fun convertBlockToRaw(block: Block) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val raw = GsonBuilder().setPrettyPrinting().create().toJson(block)
+            _blockRawData.postValue(raw)
+        }
+
+    }
+
+    fun selectBlock(block: Block) {
+        this.block = block
+
+    }
+
 }

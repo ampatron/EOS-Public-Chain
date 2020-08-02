@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         adapter = BlockListAdapter(object : BlockItemClickListener {
             override fun onBlockClicked(block: Block) {
-                viewModel.block = block
+                viewModel.selectBlock(block)
                 findNavController().navigate(
                     R.id.action_mainFragment_to_blockDetailsFragment,
                     BlockDetailsFragment.newInstanceArguments(block.id)

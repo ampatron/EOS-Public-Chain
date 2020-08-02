@@ -11,81 +11,92 @@
             type="one.block.eos.blocks.ui.main.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_container"
-        tools:context=".ui.details.BlockDetailsFragment">
+        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/label_producer"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_producer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_margin="@dimen/margin_container"
+            tools:context=".ui.details.BlockDetailsFragment">
 
-        <TextView
-            android:id="@+id/producer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/label_producer"
-            app:layout_constraintTop_toTopOf="@id/label_producer"
-            app:text="@{viewModel.block.producer}"
-            tools:text="Producer" />
+            <TextView
+                android:id="@+id/label_producer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_producer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/label_transactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/labal_transactions"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_producer" />
+            <TextView
+                android:id="@+id/producer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/label_producer"
+                app:layout_constraintTop_toTopOf="@id/label_producer"
+                app:text="@{viewModel.block.producer}"
+                tools:text="Producer" />
 
-        <TextView
-            android:id="@+id/producerTransactions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/label_transactions"
-            app:layout_constraintTop_toTopOf="@id/label_transactions"
-            app:text="@{Integer.toString(viewModel.block.transactions.size())}"
-            tools:text="Transactions" />
+            <TextView
+                android:id="@+id/label_transactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/labal_transactions"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_producer" />
 
-        <TextView
-            android:id="@+id/label_producer_signature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_producer_signature"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/label_transactions" />
+            <TextView
+                android:id="@+id/producerTransactions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/label_transactions"
+                app:layout_constraintTop_toTopOf="@id/label_transactions"
+                app:text="@{Integer.toString(viewModel.block.transactions.size())}"
+                tools:text="Transactions" />
 
-        <TextView
-            android:id="@+id/producerSignature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@+id/label_producer_signature"
-            app:layout_constraintTop_toTopOf="@id/label_producer_signature"
-            app:text="@{viewModel.block.producerSignature}"
-            tools:text="Producer Signature" />
+            <TextView
+                android:id="@+id/label_producer_signature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_producer_signature"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/label_transactions" />
 
-        <Button
-            android:id="@+id/raw_content_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_see_more"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/label_producer_signature" />
+            <TextView
+                android:id="@+id/producerSignature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/label_producer_signature"
+                app:layout_constraintTop_toTopOf="@id/label_producer_signature"
+                app:text="@{viewModel.block.producerSignature}"
+                tools:text="Producer Signature" />
 
-        <TextView
-            android:id="@+id/rawContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/raw_content_toggle" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/raw_content_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:showText="true"
+                android:text="@string/label_see_more"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/producerSignature" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/rawContent"
+                android:background="@android:color/darker_gray"
+                android:textColor="@color/colorPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/raw_content_toggle"
+                app:text="@{viewModel.blockRawData}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
