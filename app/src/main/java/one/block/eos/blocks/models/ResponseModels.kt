@@ -2,6 +2,15 @@ package one.block.eos.blocks.models
 
 import com.google.gson.annotations.SerializedName
 
+data class ChainInfo(
+    @SerializedName("server_version")
+    val serverVersion: String,
+    @SerializedName("chain_id")
+    val chainId: String,
+    @SerializedName("head_block_id")
+    val headBlockId: String
+)
+
 data class Account(
     @SerializedName("account_name")
     val accountName: String,

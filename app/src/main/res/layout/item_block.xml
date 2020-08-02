@@ -13,8 +13,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/blockNumber"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:gravity="center"
+        android:background="?attr/selectableItemBackground"
         android:text="@{Integer.toString(block.blockNum)}"
         tools:text="1234" />
 </layout>
