@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Blocks</string>
+    <string name="update_blocks">Load recent blocks</string>
+    <string name="label_producer">Producer</string>
+    <string name="labal_transactions">Transactions</string>
+    <string name="label_producer_signature">Producer Signature</string>
+    <string name="label_see_more">See More</string>
+</resources>
