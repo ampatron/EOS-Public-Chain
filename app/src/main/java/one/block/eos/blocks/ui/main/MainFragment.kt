@@ -17,6 +17,7 @@ import one.block.eos.blocks.models.Block
 import one.block.eos.blocks.ui.details.BlockDetailsFragment
 import one.block.eos.blocks.ui.main.adapter.BlockItemClickListener
 import one.block.eos.blocks.ui.main.adapter.BlockListAdapter
+
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
@@ -29,13 +30,9 @@ class MainFragment : Fragment() {
         adapter = BlockListAdapter(object : BlockItemClickListener {
             override fun onBlockClicked(block: Block) {
                 viewModel.selectBlock(block)
-                findNavController().navigate(
-                    R.id.action_mainFragment_to_blockDetailsFragment,
-                    BlockDetailsFragment.newInstanceArguments(block.id)
-                )
+                findNavController().navigate(R.id.action_mainFragment_to_blockDetailsFragment)
             }
         })
-
     }
 
     override fun onCreateView(
@@ -53,6 +50,9 @@ class MainFragment : Fragment() {
 
         viewModel.blocks.observe(requireActivity(), Observer {
             adapter.submitList(it)
+        })
+        viewModel.isLoading.observe(requireActivity(), Observer {
+            binding.loadBlocks.isEnabled = !it
         })
         load_blocks.setOnClickListener {
             viewModel.getRecentBlocks()

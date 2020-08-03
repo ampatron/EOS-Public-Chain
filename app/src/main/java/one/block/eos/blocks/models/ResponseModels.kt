@@ -58,9 +58,10 @@ data class TransactionReceipt(
     @SerializedName("cpu_usage_us")
     val cpuUsageUs: Int = 0,
     @SerializedName("net_usage_words")
-    val netUsageWords: Int = 0,
-    @SerializedName("trx")
-    val transactions: Any? = null
+    val netUsageWords: Int = 0
+//    TODO
+//    @SerializedName("trx")
+//    val transactions: Any? = null
 )
 
 data class ProducerSchedule(
