@@ -11,7 +11,7 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-interface Chain {
+interface ChainService {
     @Headers("Content-Type: application/json")
     @GET("/")
     suspend fun getChainInfo(): ChainInfo

@@ -1,5 +1,6 @@
 package one.block.eos.blocks.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import okhttp3.internal.toImmutableList
 import one.block.eos.blocks.data.BlocksRepository
 import one.block.eos.blocks.models.Block
 
-class MainViewModel : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val repository: BlocksRepository) : ViewModel() {
     private var _blocks = MutableLiveData<List<Block>>()
     val blocks: LiveData<List<Block>>
         get() = _blocks
@@ -29,7 +30,7 @@ class MainViewModel : ViewModel() {
         GlobalScope.launch {
             var blockId: String? = null
             for (i in 1..20) {
-                val block = BlocksRepository().getBlock(blockId)
+                val block = repository.getBlock(blockId)
                 blocksList.add(block)
                 _blocks.postValue(blocksList.toImmutableList())
                 blockId = block.previous
@@ -47,7 +48,7 @@ class MainViewModel : ViewModel() {
 
     fun selectBlock(block: Block) {
         this.block = block
-
+        _blockRawData.postValue(null)
     }
 
 }

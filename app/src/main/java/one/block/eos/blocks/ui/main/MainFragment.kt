@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.main_fragment.*
 import one.block.eos.blocks.R
 import one.block.eos.blocks.databinding.MainFragmentBinding
@@ -16,7 +17,7 @@ import one.block.eos.blocks.models.Block
 import one.block.eos.blocks.ui.details.BlockDetailsFragment
 import one.block.eos.blocks.ui.main.adapter.BlockItemClickListener
 import one.block.eos.blocks.ui.main.adapter.BlockListAdapter
-
+@AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private val viewModel by activityViewModels<MainViewModel>()

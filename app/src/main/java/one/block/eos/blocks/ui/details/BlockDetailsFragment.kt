@@ -8,12 +8,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.block_details_fragment.*
 import one.block.eos.blocks.databinding.BlockDetailsFragmentBinding
 import one.block.eos.blocks.ui.main.MainViewModel
 
 const val BLOCK_ID_KEY = "one.block.eos.blocks.ui.key.blockId"
 
+@AndroidEntryPoint
 class BlockDetailsFragment : Fragment() {
 
     companion object {
