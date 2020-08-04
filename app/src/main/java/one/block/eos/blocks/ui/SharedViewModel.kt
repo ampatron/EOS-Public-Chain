@@ -1,11 +1,11 @@
-package one.block.eos.blocks.ui.main
+package one.block.eos.blocks.ui
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.GsonBuilder
+import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -14,7 +14,10 @@ import one.block.eos.blocks.api.ApiSuccessResponse
 import one.block.eos.blocks.data.BlocksRepository
 import one.block.eos.blocks.models.Block
 
-class MainViewModel @ViewModelInject constructor(private val repository: BlocksRepository) :
+class SharedViewModel @ViewModelInject constructor(
+    private val repository: BlocksRepository,
+    private val gson: Gson
+) :
     ViewModel() {
     private var _blocks = MutableLiveData<List<Block>>()
     val blocks: LiveData<List<Block>>
@@ -31,12 +34,13 @@ class MainViewModel @ViewModelInject constructor(private val repository: BlocksR
     var block: Block? = null
         private set
 
-    fun getRecentBlocks() {
+    fun getRecentBlocks(count: Int = 20) {
+        if (count <= 0) return
         _isLoading.postValue(true)
         val blocksList = mutableListOf<Block>()
         GlobalScope.launch {
             var blockId: String? = null
-            for (i in 1..20) {
+            for (i in 1..count) {
                 val block = repository.getBlock(blockId)
                 if (block is ApiSuccessResponse) {
                     blocksList.add(block.response)
@@ -50,7 +54,7 @@ class MainViewModel @ViewModelInject constructor(private val repository: BlocksR
 
     fun convertBlockToRaw(block: Block) {
         viewModelScope.launch(Dispatchers.IO) {
-            val raw = GsonBuilder().setPrettyPrinting().create().toJson(block)
+            val raw = gson.toJson(block)
             _blockRawData.postValue(raw)
         }
     }

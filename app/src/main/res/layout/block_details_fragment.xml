@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="one.block.eos.blocks.ui.main.MainViewModel" />
+            type="one.block.eos.blocks.ui.SharedViewModel" />
     </data>
 
     <ScrollView

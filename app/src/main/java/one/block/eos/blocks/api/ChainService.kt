@@ -18,7 +18,7 @@ interface ChainService {
 
     @Headers("Content-Type: application/json")
     @POST("/v1/chain/get_account")
-    fun getAccount(@Body accountRequest: GetAccountRequest): Call<Account>
+    suspend fun getAccount(@Body accountRequest: GetAccountRequest): Account
 
     @Headers("Content-Type: application/json")
     @POST("/v1/chain/get_block")
