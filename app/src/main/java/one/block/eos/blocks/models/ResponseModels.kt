@@ -59,7 +59,8 @@ data class TransactionReceipt(
     val cpuUsageUs: Int = 0,
     @SerializedName("net_usage_words")
     val netUsageWords: Int = 0
-//    TODO
+//    TODO Temporary remove this because it's causing the UI to freeze.
+//     Since the text will be too long, lazy loading must be implemented
 //    @SerializedName("trx")
 //    val transactions: Any? = null
 )

@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.internal.toImmutableList
+import one.block.eos.blocks.api.ApiResponse
 import one.block.eos.blocks.api.ApiSuccessResponse
 import one.block.eos.blocks.data.BlocksRepository
 import one.block.eos.blocks.models.Block
@@ -38,7 +39,7 @@ class SharedViewModel @ViewModelInject constructor(
         if (count <= 0) return
         _isLoading.postValue(true)
         val blocksList = mutableListOf<Block>()
-        GlobalScope.launch {
+        viewModelScope.launch {
             var blockId: String? = null
             for (i in 1..count) {
                 val block = repository.getBlock(blockId)
